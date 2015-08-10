@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE WMT_MS_Capabilities SYSTEM "http://schemas.opengis.net/wms/1.1.1/WMS_MS_Capabilities.dtd"
+ [
+ <!ELEMENT VendorSpecificCapabilities EMPTY>
+ ]>  <!-- end of DOCTYPE declaration -->
+<WMT_MS_Capabilities version="1.1.1">
+<Service>
+  <Name>OGC:WMS</Name>
+  <Title>{{title}} - WMS</Title>
+  <Abstract>{{abstract}}</Abstract>
+  <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""/>
+  <Fees>none</Fees>
+  <AccessConstraints>none</AccessConstraints>
+</Service>
+<Capability>
+  <Request>
+    <GetCapabilities>
+      <Format>application/vnd.ogc.wms_xml</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{host}}/wms?"/></Get>
+        </HTTP>
+      </DCPType>
+    </GetCapabilities>
+    <GetMap>
+        <Format>image/png</Format>
+        <Format>image/jpeg</Format>
+      <DCPType>
+        <HTTP>
+          <Get><OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="{{host}}/wms?"/></Get>
+        </HTTP>
+      </DCPType>
+    </GetMap>
+
+  </Request>
+  <Exception>
+    <Format>application/vnd.ogc.se_xml</Format>
+    <Format>application/vnd.ogc.se_inimage</Format>
+    <Format>application/vnd.ogc.se_blank</Format>
+  </Exception>
+  <Layer>
+    <Title>{{title}}</Title>
+    <SRS>EPSG:900913</SRS>
+    <LatLonBoundingBox minx="-180" miny="-85.0511287798" maxx="180" maxy="85.0511287798" />
+    <BoundingBox SRS="EPSG:900913" minx="-20037508.3428" miny="-20037508.3428" maxx="20037508.3428" maxy="20037508.3428" />
+    <BoundingBox SRS="EPSG:3857" minx="-20037508.3428" miny="-20037508.3428" maxx="20037508.3428" maxy="20037508.3428" />
+  {{#each layers}}
+    <Layer>
+      <Name>{{name}}</Name>
+      <Title>{{title}}</Title>
+      <LatLonBoundingBox minx="{{minx}}" miny="{{miny}}" maxx="{{maxx}}" maxy="{{maxy}}" />
+      <BoundingBox SRS="EPSG:900913" minx="{{mercminx}}" miny="{{mercminy}}" maxx="{{mercmaxx}}" maxy="{{mercmaxy}}" />
+      {{! <BoundingBox SRS="EPSG:4326" minx="-180.0" miny="-85.0511287798" maxx="180.0" maxy="85.0511287798" /> }}
+      <BoundingBox SRS="EPSG:3857" minx="{{mercminx}}" miny="{{mercminy}}" maxx="{{mercmaxx}}" maxy="{{mercmaxy}}" />
+    </Layer>
+    {{/each}}
+  </Layer>
+</Capability>
+</WMT_MS_Capabilities>

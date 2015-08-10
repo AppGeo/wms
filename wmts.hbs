@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Capabilities xmlns="http://www.opengis.net/wmts/1.0" xmlns:ows="http://www.opengis.net/ows/1.1" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:gml="http://www.opengis.net/gml" xsi:schemaLocation="http://www.opengis.net/wmts/1.0   ../wmtsGetCapabilities_response.xsd" version="1.0.0">
+  <ows:ServiceIdentification>
+    <ows:Title>{{title}} - WMTS</ows:Title>
+    <ows:Abstract>{{abstract}}</ows:Abstract>
+    <ows:ServiceType>OGC WMTS</ows:ServiceType>
+    <ows:ServiceTypeVersion>1.0.0</ows:ServiceTypeVersion>
+    <ows:Fees>none</ows:Fees>
+    <ows:AccessConstraints>none</ows:AccessConstraints>
+  </ows:ServiceIdentification>
+  <ows:OperationsMetadata>
+    <ows:Operation name="GetCapabilities">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Get xlink:href="{{host}}/wmts/1.0.0/WMTSCapabilities.xml">
+            <ows:Constraint name="GetEncoding">
+              <ows:AllowedValues>
+                <ows:Value>KVP</ows:Value>
+              </ows:AllowedValues>
+            </ows:Constraint>
+          </ows:Get>
+        </ows:HTTP>
+      </ows:DCP>
+    </ows:Operation>
+    <ows:Operation name="GetTile">
+      <ows:DCP>
+        <ows:HTTP>
+          <ows:Get xlink:href="{{host}}/wmts?">
+            <ows:Constraint name="GetEncoding">
+              <ows:AllowedValues>
+                <ows:Value>KVP</ows:Value>
+              </ows:AllowedValues>
+            </ows:Constraint>
+          </ows:Get>
+        </ows:HTTP>
+      </ows:DCP>
+    </ows:Operation>
+  </ows:OperationsMetadata>
+  <Contents>
+    {{#each layers}}
+    <Layer>
+      <ows:Title>{{title}}</ows:Title>
+      <ows:Abstract></ows:Abstract>
+      <ows:BoundingBox crs="EPSG:900913">
+        <ows:LowerCorner>{{mercminx}} {{mercminy}}</ows:LowerCorner>
+        <ows:UpperCorner>{{mercmaxx}} {{mercmaxy}}</ows:UpperCorner>
+      </ows:BoundingBox>
+      <ows:WGS84BoundingBox>
+        <ows:LowerCorner>{{minx}} {{miny}}</ows:LowerCorner>
+        <ows:UpperCorner>{{maxx}} {{maxy}}</ows:UpperCorner>
+      </ows:WGS84BoundingBox>
+      <ows:Identifier>{{name}}</ows:Identifier>
+      <Style>
+        <ows:Identifier>default</ows:Identifier>
+      </Style>
+      {{#if jpeg}}
+        <Format>image/jpeg</Format>
+      {{/if}}
+      {{#if png}}
+        <Format>image/png</Format>
+      {{/if}}
+      <TileMatrixSetLink>
+        <TileMatrixSet>{{tileset}}</TileMatrixSet>
+        {{#each tilelimits}}
+           <TileMatrixLimits>
+            <TileMatrix>{{../tileset}}:{{zoom}}</TileMatrix>
+            <MinTileRow>{{bbox.minX}}</MinTileRow>
+            <MaxTileRow>{{bbox.maxX}}</MaxTileRow>
+            <MinTileCol>{{bbox.minY}}</MinTileCol>
+            <MaxTileCol>{{bbox.maxY}}</MaxTileCol>
+          </TileMatrixLimits>
+        {{/each}}
+      </TileMatrixSetLink>
+    </Layer>
+    {{/each}}
+    {{#each tilematrix}}
+    <TileMatrixSet>
+      <ows:Identifier>{{name}}</ows:Identifier>
+      <ows:SupportedCRS>EPSG:900913</ows:SupportedCRS>
+      {{#if level0}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:00</ows:Identifier>
+        <ScaleDenominator>559082264.029</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>1</MatrixWidth>
+        <MatrixHeight>1</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level1}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:01</ows:Identifier>
+        <ScaleDenominator>279541132.014</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>2</MatrixWidth>
+        <MatrixHeight>2</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level2}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:02</ows:Identifier>
+        <ScaleDenominator>139770566.007</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>4</MatrixWidth>
+        <MatrixHeight>4</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level3}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:03</ows:Identifier>
+        <ScaleDenominator>69885283.0036</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>8</MatrixWidth>
+        <MatrixHeight>8</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level4}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:04</ows:Identifier>
+        <ScaleDenominator>34942641.5018</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>16</MatrixWidth>
+        <MatrixHeight>16</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level5}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:05</ows:Identifier>
+        <ScaleDenominator>17471320.7509</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>32</MatrixWidth>
+        <MatrixHeight>32</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level6}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:06</ows:Identifier>
+        <ScaleDenominator>8735660.37545</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>64</MatrixWidth>
+        <MatrixHeight>64</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level7}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:07</ows:Identifier>
+        <ScaleDenominator>4367830.18772</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>128</MatrixWidth>
+        <MatrixHeight>128</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level8}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:08</ows:Identifier>
+        <ScaleDenominator>2183915.09386</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>256</MatrixWidth>
+        <MatrixHeight>256</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level9}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:09</ows:Identifier>
+        <ScaleDenominator>1091957.54693</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>512</MatrixWidth>
+        <MatrixHeight>512</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level10}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:10</ows:Identifier>
+        <ScaleDenominator>545978.773466</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>1024</MatrixWidth>
+        <MatrixHeight>1024</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level11}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:11</ows:Identifier>
+        <ScaleDenominator>272989.386733</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>2048</MatrixWidth>
+        <MatrixHeight>2048</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level12}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:12</ows:Identifier>
+        <ScaleDenominator>136494.693366</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>4096</MatrixWidth>
+        <MatrixHeight>4096</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level13}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:13</ows:Identifier>
+        <ScaleDenominator>68247.3466832</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>8192</MatrixWidth>
+        <MatrixHeight>8192</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level14}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:14</ows:Identifier>
+        <ScaleDenominator>34123.6733416</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>16384</MatrixWidth>
+        <MatrixHeight>16384</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level15}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:15</ows:Identifier>
+        <ScaleDenominator>17061.8366708</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>32768</MatrixWidth>
+        <MatrixHeight>32768</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level16}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:16</ows:Identifier>
+        <ScaleDenominator>8530.9183354</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>65536</MatrixWidth>
+        <MatrixHeight>65536</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level17}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:17</ows:Identifier>
+        <ScaleDenominator>4265.4591677</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>131072</MatrixWidth>
+        <MatrixHeight>131072</MatrixHeight>
+      </TileMatrix>
+       {{/if}}
+      {{#if level18}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:18</ows:Identifier>
+        <ScaleDenominator>2132.72958385</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>262144</MatrixWidth>
+        <MatrixHeight>262144</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level19}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:19</ows:Identifier>
+        <ScaleDenominator>1066.36479192</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>524288</MatrixWidth>
+        <MatrixHeight>524288</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level20}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:20</ows:Identifier>
+        <ScaleDenominator>533.18239596</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>1048576</MatrixWidth>
+        <MatrixHeight>1048576</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+      {{#if level21}}
+      <TileMatrix>
+        <ows:Identifier>{{name}}:21</ows:Identifier>
+        <ScaleDenominator>266.59119798</ScaleDenominator>
+        <TopLeftCorner>-20037508.3428 20037508.3428</TopLeftCorner>
+        <TileWidth>256</TileWidth>
+        <TileHeight>256</TileHeight>
+        <MatrixWidth>2097152</MatrixWidth>
+        <MatrixHeight>2097152</MatrixHeight>
+      </TileMatrix>
+      {{/if}}
+    </TileMatrixSet>
+    {{/each}}
+  </Contents>
+</Capabilities>
