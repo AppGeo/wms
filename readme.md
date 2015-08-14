@@ -3,12 +3,13 @@ wms
 
 WMS and WMTS web service for node.js only works in spherical web mercator, currently expects a tiled source.
 
-Get Capabilities
+API
 ===
 
-takes an options object with the following members
+Has 3 methods corresponding to the 3 wms/wmts methods we support (getCapabilities, getMap and getTile), all accept the same 2 and a half arguments, you can also just call it as a function and it will pick the best one.
 
-- **service**: string denoting whether it's a `wms` or `wmts` get capabilities request.
+The first is service config, the full config is bellow, but is only mandatory for getCapabilities, getMap and getTile may pass just the layers array or just the layer object (for getTile and getMap with only one layer requested).
+
 - **title**: title for the service
 - **abstract**: short description
 - **host**: the host where the service lives
@@ -18,13 +19,32 @@ takes an options object with the following members
     - **name**: identifier for the layer
     - **bbox**: bounding box for the layer in, array in [minx, miny, minx, miny] format
     - **range**: array containing the min and max zooms in terms of tile zooms in [minZoom, maxZoom] format.
-    - **image**: Array with the image types the layer should support, defaults to `['png', 'jpeg']` which are also the only two options, mainly relevant because arcgis offers no ability to select image format (defaulting to 'jpeg' making it imposible to pick png if jpeg is available).
+    - **image**: Array with the image types the layer should support, defaults to `['png', 'jpeg']` which are also the only two options, mainly relevant because arcgis offers no ability to select image format (defaulting to 'jpeg' making it impossible to pick png if jpeg is available).
+    - **getTile**: function called to get tiles, not needed for getCapabilities.
 
+The second argument is the query string.  These are the arguments being sent to the server via query string e.g. in express it's `req.query`.
 
-Get Map and Get Tile
+Either a callback can be supplied or if not it returns a promise.
+
+The callback is called with or the promise resolves with an object with the following properties:
+
+- **data**: a buffer with the data to return
+- **headers**: headers
+- **code**: status code
+
+so with express you can just call
+
+```js
+var wmsResponse = thingYouGotFromWMS
+req.send(wmsResponse.headers);
+req.status(wmsResponse.code);
+req.send(wmsResponse.data);
+```
+
+getTile function
 ===
 
-Both wms and wmts require a getTile function is called with zoom, level, and row of a tile and a callback, the callback needs to be called with the time or an error or the tile and buffer, e.g.
+Both wms and wmts require a getTile function which is called with zoom, level, and row of a tile and a callback, the callback needs to be called with the time or an error or the tile and buffer, e.g.
 
       function(z,x,y, callback){
           // do something
@@ -33,26 +53,10 @@ Both wms and wmts require a getTile function is called with zoom, level, and row
 
  this will not be called if the tile is outside of the bounding box or zoom range.
 
-GetTile
+
+Should you use a WMS or a WMTS?
 ===
 
-takes an options object with the same members as the layer object passed in the array to get capabilities with the addition of a getTile member, the request queryParams as an object and take an optional callback parameter, if omitted a promise is returned.  
+Always use a WMTS over a WMS if given a choice, only ever use a WMS if you don't have a choice.
 
-The return value is an object with the following members:
-
-- **data**: a buffer with the data to return
-- **headers**: headers
-- **code**: status code
-
-The quaryParams need the following values (all case insensative)
-
-- **layer**: the layer name
-- **tilematrix**: the tile matrix
-- **tilerow**: the tile row
-- **tilecol**: the tile column
-- **format**: format for the tile to be returned in
-
-GetMap
-===
-
-Similar to GetTile
+Even better then a WMTS server use a TMS as it allows the server to send make tiles in arbitrary and mixed formats.
