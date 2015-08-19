@@ -1,7 +1,7 @@
 wms
 ====
 
-WMS and WMTS web service for node.js only works in spherical web mercator, currently expects a tiled source.
+WMS and WMTS web service for node.js only works in spherical web mercator, currently expects a tiled source, requires Graphics Magic to be available.
 
 API
 ===
