@@ -5,7 +5,8 @@ WMS and WMTS web service for Node.js.
 
 Only works in spherical web mercator, expects a tiled source, requires Graphics Magic to be available, and a version of node that has support for ES6 features (specifically template literals, generators, and WeakMaps).
 
-## API
+API
+---
 
 The module is a function which takes 2 and a half parameters. The first is service config, the full config is bellow, but is only mandatory for `getCapabilities`, `getMap` and `getTile` may pass just the layers array or just the layer object (for `getTile` and `getMap` with only one layer requested).
 
@@ -44,7 +45,8 @@ app.get('/something', function (req, res){
 });
 ```
 
-## getTile function
+getTile function
+----------------
 
 Both WMS and WMTS require a `getTile` function which is called with `zoom`, `level`, and `row` of a tile and a callback. The callback needs to be called with the time or an error or the tile and buffer. For example:
 
@@ -58,13 +60,15 @@ function(z, x, y, callback){
 This will not be called if the tile is outside of the bounding box or zoom range.
 
 
-## Should you use a WMS or a WMTS?
+Should you use a WMS or a WMTS?
+-------------------------------
 
 Always use a WMTS over a WMS if given a choice. Only ever use a WMS if you don't have a choice.  WMS is very slow. This is not a bug; this is a consequence of how it works.
 
 Even better then a WMTS server - use a TMS as it allows the server to make and send tiles in arbitrary and mixed formats.
 
-## Spec Compliance
+Spec Compliance
+---------------
 
 This implementation of a WMS/WMTS server is written with a sensibility more akin to JSON then XML. In other words, mandatory parameters that can be inferred from context do not cause an exception to be throw. For instance: since only WMTS supports `GetTile`, and only WMS supports `GetMap`, and the only request they both support is `GetCapabilities`, omitting the `service` parameter will only throw an error on a `GetCapabilities` request.
 
@@ -76,6 +80,7 @@ It is currently not possible to specify additional `SRS` codes for WMS requests,
 
 The chances of adding in additional tile pyramids are approximately 0, as the massive increase in complexity would likely not bring in much useful benefits as it is rare to see the same custom tile pyramid used by 2 different groups, and almost unheard of to see the same custom tile pyramid used across state lines.
 
-## License
+License
+-------
 
 [MIT](license.md)
