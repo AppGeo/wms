@@ -77,4 +77,4 @@ The chances of adding in additional tile pyramids are approximately 0 as the mas
 License
 ===
 
-MIT, see license.md.
+[MIT](license.md)
