@@ -8,7 +8,7 @@ Only works in spherical web mercator, expects a tiled source, requires Graphics 
 API
 ---
 
-The module is a function which takes 2 and a half parameters. The first is service config, the full config is bellow, but is only mandatory for `getCapabilities`, `getMap` and `getTile` may pass just the layers array or just the layer object (for `getTile` and `getMap` with only one layer requested).
+The module is a function which takes 2 and a half parameters. The first is service config, the full config is below, but is only mandatory for `getCapabilities`, `getMap` and `getTile` may pass just the layers array or just the layer object (for `getTile` and `getMap` with only one layer requested).
 
 - **title**: title for the service
 - **abstract**: short description
