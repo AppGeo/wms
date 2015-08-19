@@ -4,7 +4,7 @@ var test = require('tape');
 
 var wms = require('../lib');
 
-
+var qs = require('querystring');
 // - **title**: title for the service
 // - **abstract**: short description
 // - **host**: the host where the service lives
@@ -16,6 +16,11 @@ var wms = require('../lib');
 //     - **range**: array containing the min and max zooms in terms of tile zooms in [minZoom, maxZoom] format.
 //     - **image**: Array with the image types the layer should support, defaults to `['png', 'jpeg']` which are also the only two options, mainly relevant because arcgis offers no ability to select image format (defaulting to 'jpeg' making it impossible to pick png if jpeg is available).
 //     - **getTile**:
+var fakeTile = new Buffer('abcd');
+var fakeHeaders = {
+  'content-type': 'image/png',
+  foo: 'bar'
+};
 var obj = {
   title: 'a title',
   abstract: 'not like picaso',
@@ -24,11 +29,12 @@ var obj = {
     {
       title: 'my layer',
       name: 'jeffery',
-      bbox: [-73.916015625,
-          41.16211393939692,
-          -69.67529296875,
-          43.02071359427862],
-      range: [0, 20]
+      bbox: [-106.787109375, 25.8394494020632,
+          -93.427734375, 36.6331620955865],
+      range: [0, 20],
+      getTile: function (a, b, c, cb) {
+        process.nextTick(cb, null, fakeTile, fakeHeaders);
+      }
     }
   ]
 };
@@ -53,6 +59,30 @@ test('basic wmts', function (t) {
   }).then(function (resp) {
     t.ok(Buffer.isBuffer(resp.data), 'got a buffer');
     t.equals(resp.code, 200, 'correct code');
+    t.ok(resp.headers, 'got headers');
+  }).catch(function (e) {
+    t.notOk(e);
+  });
+});
+test('basic wmts getTile request', function (t) {
+  t.plan(4);
+  wms(obj, qs.parse('service=WMTS&request=GetTile&version=1.0.0&layer=jeffery&style=default&format=image/png&TileMatrixSet=0to20&TileMatrix=0to20:18&TileRow=105976&TileCol=62375')
+  ).then(function (resp) {
+    t.ok(Buffer.isBuffer(resp.data), 'got a buffer');
+    t.equals(resp.data.toString('hex'), fakeTile.toString('hex'), 'same data');
+    t.equals(resp.code, 200, 'correct code');
+    t.equals(resp.headers.foo, 'bar', 'got custom headers');
+  }).catch(function (e) {
+    t.notOk(e);
+  });
+});
+test('basic wmts getTile for out of range request', function (t) {
+  t.plan(4);
+  wms(obj, qs.parse('service=WMTS&request=GetTile&version=1.0.0&layer=jeffery&style=default&format=image/png&TileMatrixSet=0to20&TileMatrix=0to20:18&TileRow=63040&TileCol=62375')
+  ).then(function (resp) {
+    t.ok(Buffer.isBuffer(resp.data), 'got a buffer');
+    t.equals(resp.data.toString(), '<ExceptionReport version="1.1.0" xmlns="http://www.opengis.net/ows/1.1"\n  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"\n  xsi:schemaLocation="http://www.opengis.net/ows/1.1 http://geowebcache.org/schema/ows/1.1.0/owsExceptionReport.xsd">\n  <Exception exceptionCode="TileOutOfRange"  locator="TILEROW" >\n    <ExceptionText>TILEROW is out of range</ExceptionText>\n  </Exception>\n</ExceptionReport>\n', 'exception text');
+    t.equals(resp.code, 400, 'correct code');
     t.ok(resp.headers, 'got headers');
   }).catch(function (e) {
     t.notOk(e);
