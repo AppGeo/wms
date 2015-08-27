@@ -6,7 +6,7 @@ WMS and WMTS web service for node.js only works in spherical web mercator, curre
 API
 ===
 
-The module is a function which takes 2 and a half parameters.  The first is service config, the full config is bellow, but is only mandatory for getCapabilities, getMap and getTile may pass just the layers array or just the layer object (for getTile and getMap with only one layer requested).
+The module is a function which takes 2 required parameters and 2 optional ones parameters.  The first is service config, the full config is bellow, but is only mandatory for getCapabilities, getMap and getTile may pass just the layers array or just the layer object (for getTile and getMap with only one layer requested).
 
 - **title**: title for the service
 - **abstract**: short description
@@ -21,6 +21,8 @@ The module is a function which takes 2 and a half parameters.  The first is serv
     - **getTile**: function called to get tiles, not needed for getCapabilities.
 
 The second argument is the query string.  These are the arguments being sent to the server via query string e.g. in express it's `req.query`.
+
+A cache object may also be supplied as the 3rd argument (detailed bellow).
 
 Either a callback can be supplied or if not it returns a promise (this is the half a parameter).
 
@@ -55,6 +57,15 @@ Both wms and wmts require a getTile function which is called with zoom, level, a
 
  this will not be called if the tile is outside of the bounding box or zoom range.
 
+
+Cache Object
+===
+
+The cache object which may be supplied as the 3rd argument is an object with get and set, get takes a string and a callback, set takes a string, a buffer, and a callback.
+
+Get returns either the object from the key, or it calls the callback with an error.
+
+If this object is omitted then a simple lru memory cache is used, currently is only used to cache the image transforms in the WMTS service.
 
 Should you use a WMS or a WMTS?
 ===
