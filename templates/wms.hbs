@@ -39,16 +39,14 @@
   </Exception>
   <Layer>
     <Title>{{title}}</Title>
-    <SRS>EPSG:900913</SRS>
+    <SRS>EPSG:3857</SRS>
     <LatLonBoundingBox minx="-180" miny="-85.0511287798" maxx="180" maxy="85.0511287798" />
-    <BoundingBox SRS="EPSG:900913" minx="-20037508.3428" miny="-20037508.3428" maxx="20037508.3428" maxy="20037508.3428" />
     <BoundingBox SRS="EPSG:3857" minx="-20037508.3428" miny="-20037508.3428" maxx="20037508.3428" maxy="20037508.3428" />
   {{#each layers}}
     <Layer>
       <Name>{{name}}</Name>
       <Title>{{title}}</Title>
       <LatLonBoundingBox minx="{{minx}}" miny="{{miny}}" maxx="{{maxx}}" maxy="{{maxy}}" />
-      <BoundingBox SRS="EPSG:900913" minx="{{mercminx}}" miny="{{mercminy}}" maxx="{{mercmaxx}}" maxy="{{mercmaxy}}" />
       {{! <BoundingBox SRS="EPSG:4326" minx="-180.0" miny="-85.0511287798" maxx="180.0" maxy="85.0511287798" /> }}
       <BoundingBox SRS="EPSG:3857" minx="{{mercminx}}" miny="{{mercminy}}" maxx="{{mercmaxx}}" maxy="{{mercmaxy}}" />
     </Layer>

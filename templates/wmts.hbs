@@ -41,7 +41,7 @@
     <Layer>
       <ows:Title>{{title}}</ows:Title>
       <ows:Abstract></ows:Abstract>
-      <ows:BoundingBox crs="EPSG:900913">
+      <ows:BoundingBox crs="EPSG:3857">
         <ows:LowerCorner>{{mercminx}} {{mercminy}}</ows:LowerCorner>
         <ows:UpperCorner>{{mercmaxx}} {{mercmaxy}}</ows:UpperCorner>
       </ows:BoundingBox>
@@ -76,7 +76,7 @@
     {{#each tilematrix}}
     <TileMatrixSet>
       <ows:Identifier>{{name}}</ows:Identifier>
-      <ows:SupportedCRS>EPSG:900913</ows:SupportedCRS>
+      <ows:SupportedCRS>EPSG:3857</ows:SupportedCRS>
       {{#if level0}}
       <TileMatrix>
         <ows:Identifier>{{name}}:00</ows:Identifier>
