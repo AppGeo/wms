@@ -13,6 +13,7 @@ The module is a function which takes 2 required parameters and 2 optional ones. 
 - **title**: title for the service
 - **abstract**: short description
 - **host**: the host where the service lives
+- **wmshost**: if you want the wms to be on a different host populate this, otherwise will default to host
 - **layers**: array of layer objects with the following keys
     - **viewable**: if set to false then the layer won't be included
     - **title**: title of the layer
