@@ -23,6 +23,8 @@
     "url": "git@github.com:AppGeo/wms.git"
   },
   "devDependencies": {
-    "tape": "^4.1.0"
+    "eslint": "^3.7.1",
+    "tape": "^4.1.0",
+    "eslint": "^3.7.1"
   }
 }
