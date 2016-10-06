@@ -8,9 +8,9 @@ node_js:
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - gcc-4.9
+      - libstdc++-4.9-dev
 
 before_script:
 - strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
