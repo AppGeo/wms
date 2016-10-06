@@ -1,3 +1,4 @@
+become: true
 language: node_js
 node_js:
 - '4'
@@ -5,6 +6,7 @@ node_js:
 - '6'
 
 before_script:
+- sudo apt-get install libstdc++6
 - npm install
 - npm run lint
 
