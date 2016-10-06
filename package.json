@@ -6,6 +6,7 @@
   "author": "Calvin W. Metcalf <cmetcalf@appgeo.com>",
   "license": "MIT",
   "scripts": {
+    "lint": "eslint lib/*.js",
     "test": "tape test/*.js"
   },
   "dependencies": {
