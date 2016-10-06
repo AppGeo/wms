@@ -13,6 +13,7 @@ addons:
     - gcc-4.9
 
 before_script:
+- strings /usr/lib/x86_64-linux-gnu/libstdc++.so.6 | grep GLIBCXX
 - npm install
 - npm run lint
 
