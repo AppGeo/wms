@@ -6,7 +6,6 @@
   "author": "Calvin W. Metcalf <cmetcalf@appgeo.com>",
   "license": "MIT",
   "scripts": {
-    "lint": "eslint lib/*.js",
     "test": "tape test/*.js"
   },
   "dependencies": {
@@ -23,7 +22,6 @@
     "url": "git@github.com:AppGeo/wms.git"
   },
   "devDependencies": {
-    "eslint": "^3.7.1",
     "tape": "^4.1.0"
   }
 }
