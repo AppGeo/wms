@@ -1,6 +1,8 @@
 wms
 ====
 
+[![Build Status](https://travis-ci.org/AppGeo/wms.svg?branch=master)](https://travis-ci.org/AppGeo/wms)
+
 WMS and WMTS web service for Node.js.
 
 Only works in spherical web mercator, expects a tiled source, requires Graphics Magic to be available, and a version of node that has support for ES6 features (specifically template literals, generators, and WeakMaps).
