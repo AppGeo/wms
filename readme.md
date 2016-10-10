@@ -16,6 +16,7 @@ The module is a function which takes 2 required parameters and 2 optional ones. 
 - **abstract**: short description
 - **host**: the host where the service lives
 - **wmshost**: if you want the wms to be on a different host populate this, otherwise will default to host
+- **layerLimit**: if you want to specify a limit on the number layers in wms requests, do so here
 - **layers**: array of layer objects with the following keys
     - **viewable**: if set to false then the layer won't be included
     - **title**: title of the layer

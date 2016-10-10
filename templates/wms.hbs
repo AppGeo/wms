@@ -11,6 +11,11 @@
   <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""/>
   <Fees>none</Fees>
   <AccessConstraints>none</AccessConstraints>
+  {{#if layerLimit}}
+    <LayerLimit>{{layerLimit}}</LayerLimit>
+  {{/if}}
+  <MaxWidth>19008</MaxWidth>
+  <MaxHeight>19008</MaxHeight>
 </Service>
 <Capability>
   <Request>
