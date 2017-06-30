@@ -11,7 +11,9 @@
   "dependencies": {
     "@mapbox/abaculus": "^2.0.3",
     "@mapbox/sphericalmercator": "^1.0.5",
+    "babel-eslint": "^7.2.3",
     "bluebird": "^2.9.34",
+    "eslint": "^4.1.1",
     "handlebars": "^3.0.3",
     "lru-cache": "^2.6.5",
     "mapnik": "^3.4.16",
