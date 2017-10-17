@@ -9,10 +9,10 @@
     "test": "tape test/*.js"
   },
   "dependencies": {
-    "@mapbox/abaculus": "^2.0.3",
     "@mapbox/sphericalmercator": "^1.0.5",
     "babel-eslint": "^7.2.3",
     "bluebird": "^2.9.34",
+    "d3-queue": "^3.0.7",
     "eslint": "^4.1.1",
     "handlebars": "^3.0.3",
     "lru-cache": "^2.6.5",
