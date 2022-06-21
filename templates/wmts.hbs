@@ -15,6 +15,13 @@
           <ows:Get xlink:href="{{host}}/wmts/1.0.0/WMTSCapabilities.xml">
             <ows:Constraint name="GetEncoding">
               <ows:AllowedValues>
+                <ows:Value>RESTful</ows:Value>
+              </ows:AllowedValues>
+            </ows:Constraint>
+          </ows:Get>
+          <ows:Get xlink:href="{{host}}/wmts?">
+            <ows:Constraint name="GetEncoding">
+              <ows:AllowedValues>
                 <ows:Value>KVP</ows:Value>
               </ows:AllowedValues>
             </ows:Constraint>
@@ -71,6 +78,16 @@
           </TileMatrixLimits>
         {{/each}}
       </TileMatrixSetLink>
+      {{#if jpeg}}
+      <ResourceURL format="image/jpeg"
+      resourceType="tile"
+      template="{{../host}}/wmts?SERVICE=WMTS&amp;VERSION=1.0.0&amp;REQUEST=GetTile&amp;LAYER={{name}}&amp;STYLE=default&amp;FORMAT=image/jpeg&amp;TILEMATRIXSET={TileMatrixSet}&amp;TILEMATRIX={TileMatrix}&amp;TILEROW={TileRow}&amp;TILECOL={TileCol}"/>
+      {{/if}}
+      {{#if png}}
+      <ResourceURL format="image/png"
+      resourceType="tile"
+      template="{{../host}}/wmts?SERVICE=WMTS&amp;VERSION=1.0.0&amp;REQUEST=GetTile&amp;LAYER={{name}}&amp;STYLE=default&amp;FORMAT=image/png&amp;TILEMATRIXSET={TileMatrixSet}&amp;TILEMATRIX={TileMatrix}&amp;TILEROW={TileRow}&amp;TILECOL={TileCol}"/>
+      {{/if}}
     </Layer>
     {{/each}}
     {{#each tilematrix}}
