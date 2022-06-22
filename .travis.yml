@@ -1,17 +1,19 @@
 language: node_js
 
 node_js:
-- '12'
+  - '12'
+  - '14'
+  - '16'
 
 addons:
   apt:
     sources:
-    - ubuntu-toolchain-r-test
+      - ubuntu-toolchain-r-test
     packages:
-    - libstdc++-4.9-dev
+      - libstdc++-4.9-dev
 
 before_script:
-- npm install
+  - npm install
 
 script:
-- npm test
+  - npm test
