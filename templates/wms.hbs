@@ -7,7 +7,7 @@
 <Service>
   <Name>OGC:WMS</Name>
   <Title>{{title}} - WMS</Title>
-  <Abstract>{{abstract}}</Abstract>
+  <Abstract><![CDATA[{{{abstract}}}]]></Abstract>
   <OnlineResource xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href=""/>
   <Fees>none</Fees>
   <AccessConstraints>none</AccessConstraints>
@@ -54,6 +54,7 @@
       <LatLonBoundingBox minx="{{minx}}" miny="{{miny}}" maxx="{{maxx}}" maxy="{{maxy}}" />
       {{! <BoundingBox SRS="EPSG:4326" minx="-180.0" miny="-85.0511287798" maxx="180.0" maxy="85.0511287798" /> }}
       <BoundingBox SRS="EPSG:3857" minx="{{mercminx}}" miny="{{mercminy}}" maxx="{{mercmaxx}}" maxy="{{mercmaxy}}" />
+      <Abstract><![CDATA[{{{abstract}}}]]></Abstract>
     </Layer>
     {{/each}}
   </Layer>
