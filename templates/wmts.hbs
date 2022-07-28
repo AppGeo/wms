@@ -47,7 +47,7 @@
     {{#each layers}}
     <Layer>
       <ows:Title>{{title}}</ows:Title>
-      <ows:Abstract></ows:Abstract>
+      <ows:Abstract><![CDATA[{{{abstract}}}]]></ows:Abstract>
       <ows:BoundingBox crs="EPSG:3857">
         <ows:LowerCorner>{{mercminx}} {{mercminy}}</ows:LowerCorner>
         <ows:UpperCorner>{{mercmaxx}} {{mercmaxy}}</ows:UpperCorner>
@@ -57,7 +57,6 @@
         <ows:UpperCorner>{{maxx}} {{maxy}}</ows:UpperCorner>
       </ows:WGS84BoundingBox>
       <ows:Identifier>{{name}}</ows:Identifier>
-      <ows:Abstract><![CDATA[{{{abstract}}}]]></ows:Abstract>
       <Style>
         <ows:Identifier>default</ows:Identifier>
       </Style>
