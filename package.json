@@ -1,6 +1,6 @@
 {
   "name": "wms",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "WMS/WMTS services for node.js",
   "main": "lib",
   "author": "Calvin W. Metcalf <cmetcalf@appgeo.com>",
